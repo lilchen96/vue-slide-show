@@ -1,7 +1,7 @@
 {
-  "name": "vue-circle-progress-bar",
+  "name": "vue-slide-show",
   "version": "1.0.0",
-  "description": "vue circle progress bar",
+  "description": "vue slide show",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --mode=development --config src/build/webpack.dev.js",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/lilchen96/vue-circle-progress-bar.git"
+    "url": "git+ssh://git@github.com/lilchen96/vue-slide-show.git"
   },
   "author": "lilchen96",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/lilchen96/vue-circle-progress-bar/issues"
+    "url": "https://github.com/lilchen96/vue-slide-show/issues"
   },
-  "homepage": "https://github.com/lilchen96/vue-circle-progress-bar#readme",
+  "homepage": "https://github.com/lilchen96/vue-slide-show#readme",
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.8.4",
@@ -31,6 +31,7 @@
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.2",
     "vue-template-compiler": "^2.6.11",
@@ -38,5 +39,6 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
-  }
+  },
+  "keywords": []
 }

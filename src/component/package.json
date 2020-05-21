@@ -1,11 +1,24 @@
 {
-  "name": "npm-package-name",
+  "name": "illmatic-slide-show",
   "version": "1.0.0",
-  "description": "",
+  "description": "Vue轮播图组件，支持自动循环播放和移动端滑动切换",
   "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "MIT"
+  "author": "LilChen96",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lilchen96/vue-slide-show.git"
+  },
+  "keywords": [
+    "vue",
+    "slideShow",
+    "banner"
+  ],
+  "bugs": {
+    "url": "https://github.com/lilchen96/vue-slide-show/issues"
+  },
+  "homepage": "https://github.com/lilchen96/vue-slide-show#readme"
 }
