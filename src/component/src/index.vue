@@ -18,6 +18,7 @@
       <img class="slide-show-image" :src="item" />
     </div>
     <div
+      v-if="guide"
       class="guide-point"
       :style="{ left: (containerWidth - guideWidth) / 2 + 'px' }"
     >
@@ -57,6 +58,17 @@ export default {
     interval: {
       type: Number,
       default: 5,
+    },
+
+    // 是否需要导航点
+    guide: {
+      type: Boolean,
+      default: true,
+    },
+    // 是否可滑动切换
+    control: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -106,19 +118,9 @@ export default {
         }
         if (index === neighbor.left) {
           translateStyle = "translate(-100%,0)";
-          // if (this.list.length === 2 && this.direction === "right") {
-          //   index;
-          //   debugger;
-          //   this.isTransition = false;
-          // }
         }
         if (index === neighbor.right) {
           translateStyle = "translate(100%,0)";
-          // if (this.list.length === 2 && this.direction === "left") {
-          //   index;
-          //   debugger;
-          //   this.isTransition = false;
-          // }
         }
         return translateStyle;
       };
@@ -217,6 +219,9 @@ export default {
   mounted() {},
   methods: {
     touchstart(e) {
+      if (!this.control) {
+        return;
+      }
       if (this.autoPlay) {
         this.autoPlayPause();
       }
@@ -228,6 +233,9 @@ export default {
       this.isTransition = false;
     },
     touchmove(e) {
+      if (!this.control) {
+        return;
+      }
       // 不循环的边界判断 锁死
       if (
         (!this.loop &&
@@ -247,6 +255,9 @@ export default {
       };
     },
     touchend() {
+      if (!this.control) {
+        return;
+      }
       const touchTime = new Date().getTime() - this.touchstartTime;
       this.isTransition = true;
       // 判断滑动方向
@@ -255,7 +266,7 @@ export default {
       } else if (this.translateX > 10) {
         this.direction = "right";
       } else {
-        debugger
+        debugger;
         this.direction = "";
       }
       // 滑动速度快 直接切换图片 速度慢 过50%切换 不过50%不切换

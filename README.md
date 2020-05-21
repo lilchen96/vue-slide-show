@@ -1,25 +1,32 @@
-## vue-component-cli
-
-vue 单组件脚手架
-
-#### 命令
-
-1.yarn install 安装依赖包
-
-2.yarn run dev 启动测试服务（默认端口：8000）
-
-3.yarn run build 打包
-
-4.yarn run init 初始化包信息
-
-5.yarn run login 登录 npm 账号
-
-6.yarn run publish 将组件发布到 npm
+### 组件介绍
+vue-slide-show
+Vue轮播图组件，支持自动播放、循环播放和触屏滑动切换图片。
 
 #### 使用说明
 
-1.组件写在 src/component/src/index.vue 中。
+1.安装：
+npm：`npm install illmatic-slide-show --save`
 
-2.组件的 name 是注册的名字。
+yarn：`yarn add illmatic-slide-show`
 
-2.打包后的文件（bundle.js）在 src/component/dist 中。
+2.注册组件：
+`import illmaticCircularProgress from 'illmatic-slide-show';`
+
+`Vue.use(illmaticSlideShow);`
+
+3.使用组件：
+`<illmatic-slide-show></illmatic-slide-show>`
+
+
+#### 配置项
+
+##### props:
+
+|参数名   |类型   |可填项   |说明   |默认值
+| :------------ | :------------: | :------------ | :------------ |:------------:
+|imageList   |Array   |例如:[url1,url2,url2,...]   |图片列表   |[]
+|loop   |Boolean   |true/false   |是否循环（头尾相接）   |true
+|autoPlay   |Boolean   |true/false   |是否自动播放   |true
+|interval   |Number   |例如：5   |自动播放间隔时间，单位：秒   |5
+|guide   |Boolean   |true/false   |是否需要下方导航点   |true
+|control   |Boolean   |true/false   |是否开启触屏滑动切换图片   |true
