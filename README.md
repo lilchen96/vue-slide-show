@@ -10,7 +10,7 @@ npm：`npm install illmatic-slide-show --save`
 yarn：`yarn add illmatic-slide-show`
 
 2.注册组件：
-`import illmaticCircularProgress from 'illmatic-slide-show';`
+`import illmaticSlideShow from 'illmatic-slide-show';`
 
 `Vue.use(illmaticSlideShow);`
 
