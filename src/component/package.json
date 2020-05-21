@@ -1,7 +1,7 @@
 {
   "name": "illmatic-slide-show",
   "version": "1.0.0",
-  "description": "Vue轮播图组件，支持自动循环播放和移动端滑动切换",
+  "description": "Vue轮播图组件，支持自动循环播放和触屏滑动切换图片",
   "main": "dist/bundle.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
