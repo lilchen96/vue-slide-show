@@ -2,7 +2,7 @@
   <div class="slide-show" :style="{ height: containerHeight + 'px' }">
     <div
       v-for="(item, index) in list"
-      :key="item"
+      :key="index"
       class="slide-show-image-item"
       :class="getClassName(index)"
       :style="{
@@ -22,10 +22,10 @@
       :style="{ left: (containerWidth - guideWidth) / 2 + 'px' }"
     >
       <div
-        v-for="(item, index) in list"
-        :key="item"
+        v-for="(item, index) in getPointList"
+        :key="index"
         class="point-item"
-        :class="active === index ? 'active' : ''"
+        :class="getPointClass(index)"
       ></div>
     </div>
   </div>
@@ -106,9 +106,19 @@ export default {
         }
         if (index === neighbor.left) {
           translateStyle = "translate(-100%,0)";
+          // if (this.list.length === 2 && this.direction === "right") {
+          //   index;
+          //   debugger;
+          //   this.isTransition = false;
+          // }
         }
         if (index === neighbor.right) {
           translateStyle = "translate(100%,0)";
+          // if (this.list.length === 2 && this.direction === "left") {
+          //   index;
+          //   debugger;
+          //   this.isTransition = false;
+          // }
         }
         return translateStyle;
       };
@@ -180,11 +190,36 @@ export default {
         return className;
       };
     },
+
+    getPointList() {
+      if (this.imageList.length === 2) {
+        return this.imageList;
+      } else {
+        return this.list;
+      }
+    },
+    getPointClass() {
+      return (index) => {
+        let className = "";
+        if (this.imageList.length === 2) {
+          if (index === this.active || index === this.active - 2) {
+            className = "active";
+          }
+        } else {
+          if (index === this.active) {
+            className = "active";
+          }
+        }
+        return className;
+      };
+    },
   },
   mounted() {},
   methods: {
     touchstart(e) {
-      this.autoPlayPause();
+      if (this.autoPlay) {
+        this.autoPlayPause();
+      }
       this.touchstartTime = new Date().getTime();
       this.currentPosition = {
         x: e.changedTouches[0].pageX,
@@ -217,9 +252,11 @@ export default {
       // 判断滑动方向
       if (this.translateX < -10) {
         this.direction = "left";
-      }
-      if (this.translateX > 10) {
+      } else if (this.translateX > 10) {
         this.direction = "right";
+      } else {
+        debugger
+        this.direction = "";
       }
       // 滑动速度快 直接切换图片 速度慢 过50%切换 不过50%不切换
       if (
@@ -232,7 +269,9 @@ export default {
         this.direction = this.direction === "left" ? "right" : "left";
       }
       this.translateX = 0;
-      this.autoPlayPlay();
+      if (this.autoPlay) {
+        this.autoPlayPlay();
+      }
     },
 
     getNeighbor(index, list) {
@@ -257,12 +296,26 @@ export default {
 
     // left or right
     getNextActive(direction) {
-      let result = direction === "left" ? this.active + 1 : this.active - 1;
-      if (this.active === 0 && direction === "right") {
-        result = this.loop ? this.list.length - 1 : 0;
-      }
-      if (this.active === this.list.length - 1 && direction === "left") {
-        result = this.loop ? 0 : this.list.length - 1;
+      let result = this.active;
+      switch (direction) {
+        case "left":
+          result = this.active + 1;
+          if (this.active === this.list.length - 1) {
+            result = this.loop ? 0 : this.list.length - 1;
+          }
+          break;
+        case "right":
+          result = this.active - 1;
+          if (this.active === 0) {
+            result = this.loop ? this.list.length - 1 : 0;
+          }
+          break;
+        case "":
+          result = this.active;
+          break;
+        default:
+          result = this.active;
+          break;
       }
       return result;
     },
@@ -298,7 +351,11 @@ export default {
 
     imageList: {
       handler() {
-        this.list = this.imageList;
+        if (this.imageList.length === 2) {
+          this.list = this.imageList.concat(this.imageList);
+        } else {
+          this.list = this.imageList;
+        }
         if (this.list.length > 0) {
           this.$nextTick(() => {
             this.containerWidth = document.querySelector(
