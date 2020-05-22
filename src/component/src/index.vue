@@ -222,7 +222,7 @@ export default {
       if (!this.control) {
         return;
       }
-      if (this.autoPlay) {
+      if (this.autoPlay && this.list.length > 1) {
         this.autoPlayPause();
       }
       this.touchstartTime = new Date().getTime();
@@ -243,7 +243,8 @@ export default {
           e.changedTouches[0].pageX - this.currentPosition.x >= 0) ||
         (!this.loop &&
           this.active === this.list.length - 1 &&
-          e.changedTouches[0].pageX - this.currentPosition.x <= 0)
+          e.changedTouches[0].pageX - this.currentPosition.x <= 0) ||
+        this.list.length === 1
       ) {
         return;
       }
@@ -266,7 +267,6 @@ export default {
       } else if (this.translateX > 10) {
         this.direction = "right";
       } else {
-        debugger;
         this.direction = "";
       }
       // 滑动速度快 直接切换图片 速度慢 过50%切换 不过50%不切换
@@ -280,28 +280,33 @@ export default {
         this.direction = this.direction === "left" ? "right" : "left";
       }
       this.translateX = 0;
-      if (this.autoPlay) {
+      if (this.autoPlay && this.list.length > 1) {
         this.autoPlayPlay();
       }
     },
 
     getNeighbor(index, list) {
       const neighbor = {};
-      switch (index) {
-        case 0:
-          neighbor.left = list.length - 1;
-          neighbor.right = index + 1;
-          break;
-        case list.length - 1:
-          neighbor.left = index - 1;
-          neighbor.right = 0;
-          break;
-        default:
-          neighbor.left = index - 1;
-          neighbor.right = index + 1;
-          break;
-      }
       neighbor.center = index;
+      if (list.length > 1) {
+        switch (index) {
+          case 0:
+            neighbor.left = list.length - 1;
+            neighbor.right = index + 1;
+            break;
+          case list.length - 1:
+            neighbor.left = index - 1;
+            neighbor.right = 0;
+            break;
+          default:
+            neighbor.left = index - 1;
+            neighbor.right = index + 1;
+            break;
+        }
+      } else {
+        neighbor.left = -1;
+        neighbor.right = -1;
+      }
       return neighbor;
     },
 
@@ -351,7 +356,7 @@ export default {
   watch: {
     autoPlay: {
       handler() {
-        if (this.autoPlay) {
+        if (this.autoPlay && this.list.length > 1) {
           this.autoPlayPlay();
         } else {
           this.autoPlayPause();
