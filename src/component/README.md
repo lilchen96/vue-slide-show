@@ -22,7 +22,7 @@ yarn：`yarn add illmatic-slide-show`
 
 ##### props:
 
-|参数名   |类型   |可填项   |说明   |默认值
+|参数名   |类型   |可选值   |说明   |默认值
 | :------------ | :------------: | :------------ | :------------ |:------------:
 |imageList   |Array   |例如:[url1,url2,url2,...]   |图片列表   |[]
 |loop   |Boolean   |true/false   |是否循环（头尾相接）   |true
@@ -30,3 +30,10 @@ yarn：`yarn add illmatic-slide-show`
 |interval   |Number   |例如：5   |自动播放间隔时间，单位：秒   |5
 |guide   |Boolean   |true/false   |是否展示下方导航点   |true
 |control   |Boolean   |true/false   |是否开启触屏滑动切换图片   |true
+
+
+##### events:
+
+|事件名称   |说明   |回调参数
+| ------------ | ------------ |
+|click   |点击图片时触发   |点击的图片和索引，例如：value: {image : "url",index : 1}

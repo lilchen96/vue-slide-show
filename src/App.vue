@@ -1,6 +1,6 @@
 <template>
   <div>
-    <illmatic-slide-show :imageList="list"></illmatic-slide-show>
+    <illmatic-slide-show :imageList="list" @click="click"></illmatic-slide-show>
   </div>
 </template>
 
@@ -16,6 +16,11 @@ export default {
       ],
     };
   },
+  methods:{
+    click(value){
+      console.log(value)
+    }
+  }
 };
 </script>
 

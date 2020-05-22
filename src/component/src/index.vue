@@ -15,7 +15,11 @@
       @touchmove="touchmove"
       @touchend="touchend"
     >
-      <img class="slide-show-image" :src="item" />
+      <img
+        class="slide-show-image"
+        :src="item"
+        @click="clickImage(item, index)"
+      />
     </div>
     <div
       v-if="guide"
@@ -218,6 +222,13 @@ export default {
   },
   mounted() {},
   methods: {
+    clickImage(item, index) {
+      if (this.imageList.length === 2 && index > 1) {
+        this.$emit("click", { image: item, index: index - 2 });
+      } else {
+        this.$emit("click", { image: item, index: index });
+      }
+    },
     touchstart(e) {
       if (!this.control) {
         return;
