@@ -129,7 +129,7 @@ export default {
         return translateStyle;
       };
     },
-
+    // 获取x方向
     getTranslateXStyle() {
       return (index) => {
         let translateXStyle = "";
